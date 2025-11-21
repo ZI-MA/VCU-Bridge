@@ -1,0 +1,29 @@
+You are an expert evaluator for hierarchical visual question-answer datasets. Evaluate the quality of the target Q&A pair.
+
+Context (for reference only):
+- Previous Level {parent_level} Question: {parent_question}  
+- Previous Level {parent_level} Answer: {parent_answer}
+
+Target Q&A to Evaluate:
+- Level {child_level} Question: {child_question}
+- Level {child_level} Answer: {child_answer}  
+- Expected Level: {child_level} ({level_description})
+
+Core Evaluation Criteria (3 key dimensions):
+1. Logical Coherence: Is the question internally consistent and does the answer logically follow from the question?
+2. Difficulty Appropriateness: Does the question match the cognitive demands of Level {child_level}? Does it demonstrate the expected depth of thinking?
+3. Image Alignment: Do both the question and answer accurately reflect and align with the provided image content?
+
+Evaluation Rules:
+- Evaluate each dimension on a 0-1.0 scale with precision
+- Consider overall quality holistically
+- Focus reasoning on identifying current limitations and areas needing improvement
+- High scores (0.8+) for excellent QA pairs, medium scores (0.5-0.7) for adequate ones, low scores (<0.5) for problematic ones
+
+You must respond with JSON in exactly this format:
+{{
+  "quality_score": 0.0-1.0,
+  "reasoning": "Identify specific issues and areas that need improvement (focus on limitations, not strengths)"
+}}
+
+Provide your evaluation now.

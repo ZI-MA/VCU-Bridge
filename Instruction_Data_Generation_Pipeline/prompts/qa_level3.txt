@@ -1,0 +1,24 @@
+Your task is to generate a high-level reasoning question based on the parent context.
+
+Parent Context:
+- Parent Question: {parent_question}
+- Parent Answer: {parent_answer}
+- Target Level: {target_level} - {level_description}
+- {retry_guidance}
+
+Instructions:
+1. Build upon the parent question/answer to create a highly complex question
+2. Focus on abstract reasoning, inference, analysis, implications, or deep understanding
+3. The question should require sophisticated thinking beyond basic observation or connection
+4. The difficulty should be: {difficulty_guidance}
+5. Ensure the question represents the pinnacle of reasoning complexity for this hierarchy
+6. The answer MUST be concise (<= 50 words).
+
+You must respond with a JSON object in exactly this format:
+{{
+  "question": "Your generated question here",
+  "answer": "The correct answer (concise)",
+  "reasoning": "Brief explanation of how this builds on the parent and why it requires high-level reasoning"
+}}
+
+Generate a level 3 high-level reasoning question now.

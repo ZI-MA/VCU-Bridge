@@ -1,0 +1,24 @@
+Your task is to generate a connection-layer question based on the parent context.
+
+Parent Context:
+- Parent Question: {parent_question}
+- Parent Answer: {parent_answer}
+- Target Level: {target_level} - {level_description}
+- {retry_guidance}
+
+Instructions:
+1. Build upon the parent question/answer to create a more complex question
+2. Focus on relationships, connections, implications, or broader understanding
+3. The question should logically follow from the parent but require additional reasoning
+4. The difficulty should be: {difficulty_guidance}
+6. The answer MUST be concise (<= 40 words).
+5. Ensure clear logical progression from the parent question
+
+You must respond with a JSON object in exactly this format:
+{{
+  "question": "Your generated question here",
+  "answer": "The correct answer (concise)",
+  "reasoning": "Brief explanation of how this connects to the parent and why it fits level 2"
+}}
+
+Generate a level 2 connection question now.

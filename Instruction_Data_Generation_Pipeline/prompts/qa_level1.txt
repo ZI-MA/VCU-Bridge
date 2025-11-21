@@ -1,0 +1,21 @@
+Your task is to generate a basic perception question based on the given context.
+
+Context:
+- Target Level: {target_level} - {level_description}
+- {retry_guidance}
+
+Instructions:
+1. Create a question that focuses on direct visual elements, objects, colors, positions, or basic attributes
+2. The question should be foundational and provide a building block for more complex reasoning
+3. Ensure the question is different from existing questions in the hierarchy
+4. The difficulty should be: {difficulty_guidance}
+5. The answer MUST be concise (<= 30 words).
+
+You must respond with a JSON object in exactly this format:
+{{
+  "question": "Your generated question here",
+  "answer": "The correct answer (concise)",
+  "reasoning": "Brief explanation of why this question fits level 1"
+}}
+
+Generate a level 1 basic perception question now.
