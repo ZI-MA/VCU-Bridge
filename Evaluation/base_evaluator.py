@@ -4,6 +4,7 @@ import base64
 import asyncio
 from abc import ABC
 import openai
+from openai import AsyncAzureOpenAI
 from tqdm import tqdm
 from tqdm.asyncio import tqdm as async_tqdm
 import random
@@ -308,26 +309,56 @@ class BaseEvaluator(ABC):
 
 
 class OpenAIEvaluator(BaseEvaluator):
-    """Evaluator for OpenAI-compatible APIs."""
+    """Evaluator for OpenAI-compatible APIs, with Azure OpenAI support."""
     
     def __init__(self, input_data_path, image_dir, results_dir, output_filename,
                  model_name="gpt-4o", context_mode=False,
                  api_key=None, base_url=None, max_delay=30.0, temperature=0.0):
         super().__init__(input_data_path, image_dir, results_dir, output_filename, 
                         context_mode, max_delay, temperature)
-        self.model_name = model_name
-
-        api_key = api_key or os.getenv("OPENAI_API_KEY")
-        if not api_key:
-            raise ValueError("API key required. Set OPENAI_API_KEY.")
         
-        base_url = base_url or os.getenv("OPENAI_API_BASE")
-        self.client = openai.AsyncOpenAI(api_key=api_key, base_url=base_url)
+        model_name_lower = model_name.lower()
+        use_azure = model_name_lower == "gpt-4o"
+        
+        if use_azure:
+            azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
+            azure_api_key = os.getenv("AZURE_OPENAI_API_KEY")
+            azure_api_version = os.getenv("AZURE_OPENAI_API_VERSION", "2024-12-01-preview")
+            azure_model = os.getenv("AZURE_OPENAI_MODEL", "gpt-4o")
+            
+            if azure_endpoint and azure_api_key:
+                print(f"Using Azure OpenAI: {azure_endpoint}")
+                self.model_name = azure_model
+                self.azure_endpoint = azure_endpoint
+                self.client = AsyncAzureOpenAI(
+                    api_version=azure_api_version,
+                    azure_endpoint=azure_endpoint,
+                    api_key=azure_api_key,
+                )
+            else:
+                self.model_name = model_name
+                self.azure_endpoint = None
+                api_key = api_key or os.getenv("OPENAI_API_KEY")
+                if not api_key:
+                    raise ValueError("API key required. Set OPENAI_API_KEY or AZURE_OPENAI_API_KEY.")
+                base_url = base_url or os.getenv("OPENAI_API_BASE")
+                self.client = openai.AsyncOpenAI(api_key=api_key, base_url=base_url)
+        else:
+            self.model_name = model_name
+            self.azure_endpoint = None
+            api_key = api_key or os.getenv("OPENAI_API_KEY")
+            if not api_key:
+                raise ValueError("API key required. Set OPENAI_API_KEY.")
+            base_url = base_url or os.getenv("OPENAI_API_BASE")
+            self.client = openai.AsyncOpenAI(api_key=api_key, base_url=base_url)
 
     async def test_connection(self):
         """Test API connection before starting evaluation."""
         try:
-            print(f"Testing connection to {self.client.base_url}...")
+            if isinstance(self.client, AsyncAzureOpenAI):
+                print(f"Testing Azure OpenAI connection to {self.azure_endpoint}...")
+            else:
+                print(f"Testing connection to {self.client.base_url or 'OpenAI API'}...")
             await self.client.chat.completions.create(
                 model=self.model_name,
                 messages=[{"role": "user", "content": "Hi"}],
