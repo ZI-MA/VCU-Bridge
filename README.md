@@ -25,7 +25,7 @@
 
 <div align="center">
 
-[![Paper](https://img.shields.io/badge/Paper-arXiv-red)](https://arxiv.org/abs/[TODO]) [![Project Page](https://img.shields.io/badge/Project-Page-green)](https://vcu-bridge.github.io/) [![Dataset](https://img.shields.io/badge/Dataset-HuggingFace-yellow)](https://huggingface.co/datasets/Chime316/HVCU-Bench) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Paper](https://img.shields.io/badge/Paper-arXiv-red)](https://arxiv.org/abs/2511.18121) [![Project Page](https://img.shields.io/badge/Project-Page-green)](https://vcu-bridge.github.io/) [![Dataset](https://img.shields.io/badge/Dataset-HuggingFace-yellow)](https://huggingface.co/datasets/Chime316/HVCU-Bench) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 </div>
 
@@ -986,5 +986,13 @@ For questions, issues, or collaboration opportunities:
 If you find this work useful in your research, please cite:
 
 ```bibtex
-
+@misc{zhong2025vcubridgehierarchicalvisualconnotation,
+      title={VCU-Bridge: Hierarchical Visual Connotation Understanding via Semantic Bridging}, 
+      author={Ming Zhong and Yuanlei Wang and Liuzhou Zhang and Arctanx An and Renrui Zhang and Hao Liang and Ming Lu and Ying Shen and Wentao Zhang},
+      year={2025},
+      eprint={2511.18121},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2511.18121}, 
+}
 ```
